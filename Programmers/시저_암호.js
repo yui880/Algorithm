@@ -1,3 +1,5 @@
+// 내가 푼 방식
+
 function solution(s, n) {
     s = [...s];
     let temp = [];
@@ -19,4 +21,11 @@ function solution(s, n) {
         }
     }
     return temp.join('');
+}
+
+// 리팩토링 
+function solution(s, n) {
+    let chars = "abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXY                          "
+    
+    return [...s].map(c => chars[chars.indexOf(c) + n]).join('');
 }
