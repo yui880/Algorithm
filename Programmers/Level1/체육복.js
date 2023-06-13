@@ -24,7 +24,6 @@ function solution(n, lost, reserve) {
     }
     return bring + count;
     
-    
-    
-    
 }
+
+// 이웃한 애들한테만 빌릴 수 있다는 제약사항 까먹어서 오래걸림 
