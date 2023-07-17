@@ -17,3 +17,18 @@ function solution(progresses, speeds) {
     }
     return answer;
 }
+
+const suffixWon = (price) => price + '원';
+const isOverOneThousand = (price) => Number(price) > 1000;
+const ascendingList = (a,b) => a - b;
+
+function getWonPrice(priceList) {
+    // const isOverList = priceList.filter(isOverOneThousand);
+    // const sortedList = isOverList.sort(ascendingList);
+    // return sortedList.map(suffixWon);
+
+    return priceList
+        .filter(isOverOneThousand)
+        .sort(ascendingList)
+        .map(suffixWon);
+}
