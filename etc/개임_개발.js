@@ -28,10 +28,15 @@ function gameDevelop(size, position, direction, gamemap){
             tempA = a + back[direction][0];
             tempB = b + back[direction][1];
 
-            if(gamemap[tempA][tempB] === 2 || gamemap[tempA][tempB] === 0){
+            if(gamemap[tempA][tempB] === 2 ){
                 a = tempA;
                 b = tempB;
-            } else {
+            } else if(gamemap[tempA][tempB] === 0){
+                a = tempA;
+                b = tempB;
+                gamemap[a][b] = 2;
+            }
+            else {
                 break;
             }
             turn = 0;
