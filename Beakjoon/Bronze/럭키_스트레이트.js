@@ -17,6 +17,19 @@ function solution(input){
     else console.log('READY');
 }
 
+function solution(input){
+    let sum = [0, 0];
+    const len = input.toString().length / 2;
+    for(let i=0;i<len;i++){
+        sum[0] += +input[i];
+    }
+    for(let i=len;i<input.length;i++){
+        sum[1] += +input[i];
+    }
+    console.log(sum[0] === sum[1] ? 'LUCKY' : 'READY');
+}
+
+
 solution(input);
 
 // console.log(solution(123402));
