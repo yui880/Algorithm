@@ -15,7 +15,6 @@ function solution(key, lock) {
     }
  
     let count = 5;
-    let num = 0;
 
     while(--count){
         key = turn(key);
@@ -26,7 +25,6 @@ function solution(key, lock) {
                 for(let x=0;x<keyLen;x++){
                     for(let y=0;y<keyLen;y++){
                         tempLock[i+x][j+y] += key[x][y];
-                        num++;
                     }
                 }
                 const isUnlock = check(tempLock,keyLen,lockLen);
