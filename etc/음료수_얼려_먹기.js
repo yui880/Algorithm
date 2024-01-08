@@ -1,39 +1,39 @@
-// 이코테 DFS/BFS 실전문제 
+// 이코테 DFS/BFS 실전문제
 
 const solution = (N, M, ice_tray) => {
     let answer = 0;
-    
+
     const dfs = (x, y) => {
-        if(x <= -1 || x >= N || y <= -1|| y >= M) return false;
-        
-        if(ice_tray[x][y] === 0){
+        if (x <= -1 || x >= N || y <= -1 || y >= M) return false;
+
+        if (ice_tray[x][y] === 0) {
             ice_tray[x][y] = 1;
-            dfs(x-1,y);
-            dfs(x+1,y);
-            dfs(x,y-1);
-            dfs(x,y+1);
+            dfs(x - 1, y);
+            dfs(x + 1, y);
+            dfs(x, y - 1);
+            dfs(x, y + 1);
             return true;
         }
         return false;
-    }
+    };
 
-    for(let i=0;i<N;i++){
-        for(let j=0;j<M;j++){
-            if(dfs(i,j) === true){
+    for (let i = 0; i < N; i++) {
+        for (let j = 0; j < M; j++) {
+            if (dfs(i, j) === true) {
                 answer++;
             }
         }
     }
 
     return answer;
-}
+};
 
 const ice1 = [
     [0, 0, 1, 1, 0],
     [0, 0, 0, 1, 1],
     [1, 1, 1, 1, 1],
-    [0, 0, 0, 0, 0]
-  ]
+    [0, 0, 0, 0, 0],
+];
 const ice2 = [
     [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
     [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 0],
@@ -50,8 +50,7 @@ const ice2 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1],
     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]
-   
+];
 
-console.log(solution(4,5, ice1)); // 3
-console.log(solution(15,14, ice2)); // 8
+console.log(solution(4, 5, ice1)); // 3
+console.log(solution(15, 14, ice2)); // 8

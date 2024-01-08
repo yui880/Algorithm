@@ -25,4 +25,33 @@ for tc in range(1,1+t):
     dfs(nums,int(count))
     print(f'#{tc} {max(result[0])}')
 
-        
+# 다시 풀기 
+
+def dfs(node,count):
+    global visited
+
+    temp = int("".join(node))
+    if temp in visited[count]: 
+        return
+    else: 
+        visited[count].append(temp)
+    
+    if count == max_count: return
+    
+    for i in range(len_num-1):
+        for j in range(i+1,len_num):
+            node[i],node[j] = node[j],node[i]
+            dfs(node, count+1)
+            node[i],node[j] = node[j],node[i]
+
+T = int(input())
+for tc in range(1,T+1):
+    first, max_count = input().split()
+    first = list(first)
+    len_num = len(first)
+    max_count = int(max_count)
+
+    visited = [[] for _ in range(max_count+1)]
+ 
+    dfs(first,0)
+    print(f'#{tc} {max(visited[max_count])}')
