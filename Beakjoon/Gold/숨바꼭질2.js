@@ -5,29 +5,29 @@ let input = fs.readFileSync(filePath).toString().trim().split("\n");
 
 const [N, K] = input.shift().split(" ").map(Number);
 const max = 100001;
-const visited = new Array(max).fill();
-let answer = Infinity;
+const visited = new Array(max).fill(false);
+const answer = [];
 
-const queue = [];
 const bfs = (start) => {
+    const queue = [];
     queue.push([start, 0]);
     visited[start] = true;
 
     let idx = 0;
     while (queue.length > idx) {
         const [position, time] = queue[idx++];
+        visited[position] = true;
 
-        if (position * 2 <= max && visited[position * 2] > time) {
-            queue.push([position * 2, time + 1]);
-            visited[position * 2] = true;
+        if (position === K) {
+            answer.push(time);
+            continue;
         }
-        if (position - 1 >= 0 && !visited[position - 1]) {
-            queue.push([position - 1, time + 1]);
-            visited[position - 1] = true;
-        }
-        if (position + 1 <= max && !visited[position + 1]) {
-            queue.push([position + 1, time + 1]);
-            visited[position + 1] = true;
+
+        const calc = [position * 2, position - 1, position + 1];
+        for (let i = 0; i < 3; i++) {
+            if (calc[i] <= max && calc[i] >= 0 && !visited[calc[i]]) {
+                queue.push([calc[i], time + 1]);
+            }
         }
     }
 };
@@ -37,8 +37,8 @@ if (N >= K) {
     console.log(1);
 } else {
     bfs(N);
-    console.log(answer);
-    const list = queue.filter(([p, t]) => p === K && t === answer);
-
-    console.log(list[0].length);
+    const min = Math.min(...answer);
+    const count = answer.filter((val) => val === min).length;
+    console.log(min);
+    console.log(count);
 }
