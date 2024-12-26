@@ -8,19 +8,11 @@ function solution(a, edges) {
         tree[u] ? tree[u].push(v) : tree[u] = [v]
         tree[v] ? tree[v].push(u) : tree[v] = [u]
     }
-    
-    let leaf = [];
-    
-    for(const key in tree){
-        if(tree[key].length === 1) {
-            leaf.push(key);
-        }
-    }
 
     const visited = new Set();
     let answer = 0n;
     
-    const stack = [[leaf[0], null]]; // [node, parent]
+    const stack = [[0, null]]; // [node, parent]
     const sums = Array(a.length).fill(0n);
    
     while(stack.length) {
@@ -35,7 +27,7 @@ function solution(a, edges) {
            }
        } else {
            stack.pop(); // 방문 했으면 탐색 X
-           if(parent !== null) { // 리프노드 / 루트노드면 해당 위치에 남은 숫자들 정답에 더해주기 
+           if(parent !== null) { 
                sums[parent] += sums[node];
                answer += BigInt(Math.abs(Number(sums[node])));
            }
