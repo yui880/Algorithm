@@ -3,31 +3,20 @@ const filePath = process.platform === "linux" ? "/dev/stdin" : "Beakjoon/Gold/te
 let input = fs.readFileSync(filePath).toString().trim().split("\n");
 
 const t = Number(input.shift());
-const list = input.map((str) => str.split(" ").map(BigInt));
+const list = input.map((str) => str.split(" ").map(Number));
 
 const answer = [];
 
 for (const [x, y] of list) {
-  const goal = y - x;
-  let moved = 0n;
+  const distance = y - x;
+  const max = Math.floor(Math.sqrt(distance));
 
-  let idx = 0n; // 몇번째 이동인지
-  let count = 0; // 총 이동 횟수
-
-  while (moved < goal) {
-    idx++;
-
-    moved += idx * 2n;
-    count += 2;
-
-    if (moved - idx >= goal) {
-      answer.push(count - 1);
-      break;
-    }
-    if (moved >= goal) {
-      answer.push(count);
-      break;
-    }
+  if (max ** 2 === distance) {
+    answer.push(max * 2 - 1);
+  } else if (distance <= max ** 2 + max) {
+    answer.push(max * 2);
+  } else {
+    answer.push(max * 2 + 1);
   }
 }
 
