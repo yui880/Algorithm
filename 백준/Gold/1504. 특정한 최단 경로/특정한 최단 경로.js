@@ -41,12 +41,11 @@ const dijksta = (start) => {
   return distance;
 };
 
-const start = dijksta(1);
 const first = dijksta(f);
 const second = dijksta(s);
 
-const startToFirst = start[f];
-const startToSecond = start[s];
+const startToFirst = first[1];
+const startToSecond = second[1];
 
 const firstToSecond = first[s];
 
