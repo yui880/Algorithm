@@ -17,6 +17,8 @@ const bfs = (a, b) => {
   while (queue.length > idx) {
     const [x, y, broken] = queue[idx++];
 
+    if (broken > wall[x][y]) continue;
+
     for (let i = 0; i < 4; i++) {
       const nx = x + dx[i];
       const ny = y + dy[i];
