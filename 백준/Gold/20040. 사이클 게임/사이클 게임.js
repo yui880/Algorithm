@@ -5,12 +5,6 @@ let input = fs.readFileSync(filePath).toString().trim().split("\n");
 const [n, m] = input.shift().split(" ").map(Number);
 const list = input.map((str) => str.split(" ").map(Number));
 
-const graph = Array.from({ length: n }, () => []);
-
-list.forEach(([s, e]) => {
-  graph[s].push(e);
-});
-
 const root = Array.from({ length: n }, (_, i) => i);
 
 const find = (x) => {
