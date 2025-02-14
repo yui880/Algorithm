@@ -5,49 +5,60 @@ let input = fs.readFileSync(filePath).toString().trim().split("\n");
 const [n, m, r] = input.shift().split(" ").map(Number);
 const board = input.map((str) => str.split(" ").map(Number));
 
-const getArr = (num) => {
+const dx = [0, 1, 0, -1];
+const dy = [1, 0, -1, 0];
+
+const getArr = (start) => {
   const arr = [];
+  let x = start;
+  let y = start;
+  let dir = 0;
 
-  for (let j = num; j < m - num; j++) {
-    arr.push(board[num][j]);
+  while (dir < 4) {
+    arr.push(board[x][y]);
+    const nx = x + dx[dir];
+    const ny = y + dy[dir];
+
+    if (nx < start || nx >= n - start || ny < start || ny >= m - start) {
+      dir++;
+
+      if (dir === 4) break;
+      x += dx[dir];
+      y += dy[dir];
+    } else {
+      x = nx;
+      y = ny;
+    }
   }
 
-  for (let i = num + 1; i < n - num; i++) {
-    arr.push(board[i][m - num - 1]);
-  }
-
-  for (let j = m - num - 2; j >= num; j--) {
-    arr.push(board[n - num - 1][j]);
-  }
-
-  for (let i = n - num - 2; i >= num + 1; i--) {
-    arr.push(board[i][num]);
-  }
-
+  arr.pop();
   return arr;
 };
 
-const setArr = (num, list) => {
+const setArr = (start, list) => {
   let idx = 0;
+  let x = start,
+    y = start;
+  let dir = 0;
 
-  for (let j = num; j < m - num; j++) {
-    board[num][j] = list[idx++];
-  }
+  while (idx < list.length) {
+    board[x][y] = list[idx++];
+    const nx = x + dx[dir];
+    const ny = y + dy[dir];
 
-  for (let i = num + 1; i < n - num; i++) {
-    board[i][m - num - 1] = list[idx++];
-  }
-
-  for (let j = m - num - 2; j >= num; j--) {
-    board[n - num - 1][j] = list[idx++];
-  }
-
-  for (let i = n - num - 2; i >= num + 1; i--) {
-    board[i][num] = list[idx++];
+    if (nx < start || nx >= n - start || ny < start || ny >= m - start) {
+      dir++;
+      if (dir === 4) break;
+      x += dx[dir];
+      y += dy[dir];
+    } else {
+      x = nx;
+      y = ny;
+    }
   }
 };
 
-let count = Math.min(Math.ceil(n / 2), Math.ceil(m / 2));
+let count = Math.min(Math.floor(n / 2), Math.floor(m / 2));
 let idx = 0;
 
 while (idx < count) {
