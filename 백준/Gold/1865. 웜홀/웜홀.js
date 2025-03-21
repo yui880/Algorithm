@@ -22,28 +22,32 @@ for (let count = 0; count < t; count++) {
     route.push([s, e, -t]);
   }
 
-  const dist = Array.from({ length: n + 1 }, () => Array(n + 1).fill(Infinity));
-  for (const [s, e, t] of route) {
-    dist[s][e] = Math.min(dist[s][e], t);
-  }
+  const findNegativeCycle = () => {
+    const dist = Array(n + 1).fill(0); // 0으로 설정하면 모든 점에서 시작
 
-  let found = false;
+    for (let i = 0; i < n; i++) {
+      // n번 순회
+      let updated = false;
 
-  for (let k = 1; k <= n; k++) {
-    for (let i = 1; i <= n; i++) {
-      for (let j = 1; j <= n; j++) {
-        if (dist[i][k] !== Infinity && dist[k][j] !== Infinity) {
-          dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
-        }
+      for (let j = 0; j < route.length; j++) {
+        // m개의 간선
+        const [s, e, t] = route[j];
 
-        if (i === j && dist[i][j] < 0) {
-          found = true;
-          break;
+        if (dist[s] + t < dist[e]) {
+          dist[e] = dist[s] + t;
+          updated = true;
+
+          if (i === n - 1) return true;
         }
       }
+
+      if (!updated) break;
     }
-    if (found) break;
-  }
+
+    return false;
+  };
+
+  const found = findNegativeCycle();
 
   if (found) console.log("YES");
   else console.log("NO");
