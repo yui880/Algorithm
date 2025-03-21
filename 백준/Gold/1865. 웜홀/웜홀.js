@@ -27,25 +27,24 @@ for (let count = 0; count < t; count++) {
     dist[s][e] = Math.min(dist[s][e], t);
   }
 
+  let found = false;
+
   for (let k = 1; k <= n; k++) {
     for (let i = 1; i <= n; i++) {
       for (let j = 1; j <= n; j++) {
         if (dist[i][k] !== Infinity && dist[k][j] !== Infinity) {
           dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
         }
+
+        if (i === j && dist[i][j] < 0) {
+          found = true;
+          break;
+        }
       }
     }
+    if (found) break;
   }
 
-  let flag = false;
-
-  for (let i = 1; i <= n; i++) {
-    if (dist[i][i] < 0) {
-      flag = true;
-      break;
-    }
-  }
-
-  if (flag) console.log("YES");
+  if (found) console.log("YES");
   else console.log("NO");
 }
